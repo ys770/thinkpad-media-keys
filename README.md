@@ -84,6 +84,13 @@ This removes the overrides, the link handler, the shortcuts and the files. Phone
   `MS-PHONE`. Try signing out and back in, then pressing the key again.
 - **It stopped working after an update.** Lenovo driver updates may reset the AppLaunch table, so re-run `install.ps1`.
   If Phone Link got removed, the F11 key will open the Store page again. Reinstall Phone Link to fix it.
+- **The keys suddenly stopped working (often after a Windows update).** Check whether **Smart App Control**
+  is blocking the programs. It blocks unsigned programs, and these are built locally, so they aren't signed. It
+  can move from evaluation mode to fully on by itself. To confirm, open Event Viewer and look under
+  Applications and Services Logs → Microsoft → Windows → CodeIntegrity → Operational for
+  events 3033/3077 that mention `Prev.exe`, `PlayPause.exe` or `Next.exe`. To fix it, go to Windows Security →
+  App & browser control → Smart App Control settings and choose **Off**, then restart (or run `Restart-Service TPHKLOAD` as admin).
+  This only disables Smart App Control. Microsoft Defender antivirus stays on.
 - **A key does nothing during `find-keys.ps1`.** That's expected. It means that key goes through the
   table and was captured. Everything is restored when the script finishes.
 
